@@ -1,25 +1,3 @@
-const Player = (name, symbol) => {
-    let turn = true;
-    /*const play = (gameboard) => {
-        let board = document.querySelectorAll('.gameboard div');
-        board.forEach((grid) => {
-
-            grid.addEventListener('click', () => {
-                if ((!grid.textContent) && (turn === true)) {
-                    console.log(`${name} is playing!`);
-                    grid.textContent = symbol;
-                    gameboard[grid.className[grid.className.length - 1]] = symbol; //getting thr last index of the class name of each grid to use them as indices in the gameboard array
-                    turn = false;
-                }
-
-            });
-
-        });
-    }*/
-
-    return { name, symbol, turn };
-};
-
 const game = (() => {
 
     let board = document.querySelectorAll('.gameboard div');
@@ -27,9 +5,18 @@ const game = (() => {
     const body = document.querySelector('body');
     const result = document.createElement('div');
 
+
+    const Player = (name, symbol) => {
+        let turn = true;
+        return { name, symbol, turn };
+    };
+
+    const player1 = Player("Player 1", "X");
+    const player2 = Player("Player 2", "O");
+
     const gameBoard = () => {
 
-        const restart = (player1, player2) => {
+        const restart = () => {
             const start = document.querySelector('.start');
             start.addEventListener('click', () => {
                 result.textContent = "";
@@ -50,7 +37,7 @@ const game = (() => {
         return { restart, getGameBoard };
     }
 
-    const displayController = (player1, player2) => {
+    const displayController = () => {
         board.forEach((grid) => {
             grid.addEventListener('click', () => {
 
@@ -161,8 +148,7 @@ const game = (() => {
 
 })();
 
-const player1 = Player("Player 1", "X");
-const player2 = Player("Player 2", "O");
 
-game.displayController(player1, player2);
-game.gameBoard().restart(player1, player2);
+
+game.displayController();
+game.gameBoard().restart();
